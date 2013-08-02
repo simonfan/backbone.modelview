@@ -35,7 +35,7 @@ define(['backbone','jquery','jquery.fill','underscore'], function(Backbone, $, u
 		 * Abstracts the process of checking whether there is a data function.
 		 */
 		_data: function() {
-			return typeof this.data === 'function' ? this.data(model) : this.model.attributes;
+			return typeof this.data === 'function' ? this.data(this.model) : this.model.attributes;
 		},
 
 		/**
