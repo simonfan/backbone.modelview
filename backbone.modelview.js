@@ -21,14 +21,21 @@ define(['backbone','jquery','jquery.fill','underscore'], function(Backbone, $, u
 			 * Whenever the model changes, the view should update itself.
 			 */
 			this.listenTo(this.model, 'change', function(model) {
-				var data = typeof _this.data === 'function' ? _this.data(model) : model.attributes;
+				var data = _this._data();
 				_this.fill(data);
 			});
 
 			/**
 			 * Initialize by filling in the model's data
 			 */
-			this.fill(this.model.attributes);
+			this.fill(this._data());
+		},
+
+		/**
+		 * Abstracts the process of checking whether there is a data function.
+		 */
+		_data: function() {
+			return typeof this.data === 'function' ? this.data(model) : this.model.attributes;
 		},
 
 		/**
