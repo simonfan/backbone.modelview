@@ -1,15 +1,13 @@
 {
-	"name": "backbone.modelview",
-	"version": "0.0.1",
-	"dependencies": {
-		"jquery": "lastest",
-		"underscore": "latest",
-		"backbone": "latest",
-		"requirejs": "latest",
-		"jquery.fill": "simonfan/jquery.fill",
-
-	    "qunit": "latest"
-	},
-
-	"main": "backbone.modelview.js"
+  "name": "backbone.modelview",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery.fill": "simonfan/jquery.fill",
+    "qunit": "*",
+    "jquery": "~2.0.3",
+    "underscore": "~1.5.1",
+    "backbone": "~1.0.0",
+    "requirejs": "~2.1.8"
+  },
+  "main": "backbone.modelview.js"
 }
