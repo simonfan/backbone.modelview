@@ -7,7 +7,7 @@ require.config({
 		'underscore': 'components/underscore/underscore',
 		'backbone': 'components/backbone/backbone',
 
-		'fill': 'components/fill/fill',
+		'jquery.fill': 'components/jquery.fill/jquery.fill',
 
 		// the module files go here
 		'backbone.modelview': '../backbone.modelview',

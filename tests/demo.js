@@ -6,6 +6,9 @@ define(['backbone.modelview','backbone'], function(ModelView, Backbone) {
 	window.view = new ModelView({
 		el: $('.model'),
 		model: model,
+		/**
+		 * maps the data values to the html selectors
+		 */
 		map: {
 			'title': '.title',
 			'thumbnail': 'img',
@@ -13,7 +16,14 @@ define(['backbone.modelview','backbone'], function(ModelView, Backbone) {
 			'input': '.input-text',
 			'choice': 'input[name="choose-one"]',
 			'check': 'input[name="choose-multiple"]',
+		},
+		/** 
+		 * method called to get the data hash to be displayed.
+		 */
+		data: function(model) {
+			return model.attributes;
 		}
+
 	});
 
 

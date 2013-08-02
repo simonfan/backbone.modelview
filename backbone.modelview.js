@@ -1,4 +1,4 @@
-define(['backbone','jquery','fill','underscore'], function(Backbone, $, undef, undef) {
+define(['backbone','jquery','jquery.fill','underscore'], function(Backbone, $, undef, undef) {
 
 	var ModelView = Backbone.ModelView = Backbone.View.extend({
 		initialize: function(options) {
@@ -10,12 +10,19 @@ define(['backbone','jquery','fill','underscore'], function(Backbone, $, undef, u
 			// maps the data from the model to the elements.
 			this.map = options.map || {};
 
+			/** 
+			 * If there is a data parameter in the options, 
+			 * we'll try to use it to fill in the display.
+			 */
+			this.data = options.data;
+
 			/**
 			 * Listen to change events on the model.
 			 * Whenever the model changes, the view should update itself.
 			 */
 			this.listenTo(this.model, 'change', function(model) {
-				_this.fill(model.attributes);
+				var data = typeof _this.data === 'function' ? _this.data(model) : model.attributes;
+				_this.fill(data);
 			});
 
 			/**
