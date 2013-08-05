@@ -2,8 +2,20 @@ define(['backbone','jquery','jquery.fill','underscore'], function(Backbone, $, u
 
 	var ModelView = Backbone.ModelView = Backbone.View.extend({
 		initialize: function(options) {
+			/**
+			 * Options:
+			 *	- el
+			 *	- model
+			 * 	- map: hash mapping from data keys to html selectors
+			 * 	- data: function(model) { return model.attributes; }
+			 */
 
 			_.bindAll(this,'fill');
+
+
+			if (!this.el) {
+				throw new Error('NO EL in ModelView!');
+			}
 
 			var _this = this;
 
