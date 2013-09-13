@@ -10,12 +10,14 @@ define(['backbone.modelview','backbone'], function(ModelView, Backbone) {
 		 * maps the data values to the html selectors
 		 */
 		map: {
-			'title': '.title',
-			'thumbnail': 'img',
-			'fruit': '.option',
-			'input': '.input-text',
-			'choice': 'input[name="choose-one"]',
-			'check': 'input[name="choose-multiple"]',
+			'.title': 'title',
+			'.title -> css:background-color': 'title-color',
+			'img': 'thumbnail',
+			'img -> css:width': 'thumbnail-width',
+			'.option': 'fruit',
+			'.input-text': 'input',
+			'input[name="choose-one"]': 'choice',
+			'input[name="choose-multiple"]': 'check',
 		},
 		/** 
 		 * method called to get the data hash to be displayed.
@@ -30,7 +32,9 @@ define(['backbone.modelview','backbone'], function(ModelView, Backbone) {
 
 	model.set({
 		title: 'Testing title',
+		'title-color': 'green',
 		thumbnail: 'warning.gif',
+		'thumbnail-width': 200,
 		fruit: 'banana',
 		input: 'LALALALALALA',
 		choice: 'three',
