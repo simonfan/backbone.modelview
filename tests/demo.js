@@ -1,7 +1,17 @@
 define(['backbone.modelview','backbone'], function(ModelView, Backbone) {
 
 
-	window.model = new Backbone.Model();
+	window.model = new Backbone.Model({
+		'background-color': 'red',
+		title: 'Testing title',
+		'title-color': 'green',
+		thumbnail: 'warning.gif',
+		'thumbnail-width': 200,
+		fruit: 'banana',
+		input: 'LALALALALALA',
+		choice: 'three',
+		check: ['first','third','sixth']
+	});
 
 	window.view = new ModelView({
 		el: $('.model'),
@@ -27,19 +37,5 @@ define(['backbone.modelview','backbone'], function(ModelView, Backbone) {
 			return model.attributes;
 		},
 	});
-
-
-
-	model.set({
-		'background-color': 'red',
-		title: 'Testing title',
-		'title-color': 'green',
-		thumbnail: 'warning.gif',
-		'thumbnail-width': 200,
-		fruit: 'banana',
-		input: 'LALALALALALA',
-		choice: 'three',
-		check: ['first','third','sixth']
-	})
 	
 });

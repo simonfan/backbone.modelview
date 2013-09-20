@@ -13,7 +13,7 @@ define(['backbone','jquery','jquery.fill','underscore'], function(Backbone, $, u
 			_.bindAll(this,'fill');
 
 			// make sure there is a model
-			this.model = _.isObject(this.model) ? this.model : _.isFunction(this.model) ? new this.model() : new Backbone.Model();
+			this.model = _.isFunction(this.model) ? new this.model() : this.model;
 
 			if (!this.el) {
 				throw new Error('NO EL in ModelView!');
@@ -24,7 +24,8 @@ define(['backbone','jquery','jquery.fill','underscore'], function(Backbone, $, u
 				map = options.map || this.map || {};
 
 			// the real map
-			this._map = _.invert(map);
+			this._map = {};
+			this.mapAttribute(map);
 
 			/** 
 			 * If there is a data parameter in the options, 
@@ -48,6 +49,11 @@ define(['backbone','jquery','jquery.fill','underscore'], function(Backbone, $, u
 		},
 
 		/**
+		 * default model constructor.
+		 */
+		model: Backbone.Model,
+
+		/**
 		 * Adds an element to the selector-data map.
 		 */
 		mapAttribute: function(selector, attribute) {
@@ -58,7 +64,19 @@ define(['backbone','jquery','jquery.fill','underscore'], function(Backbone, $, u
 				})
 
 			} else {
-				this._map[ attribute ] = selector;
+				var attrMapsTo = this._map[ attribute ];
+
+				if (_.isUndefined(attrMapsTo)) {
+
+					this._map[ attribute ] = selector;
+
+				} else if (_.isArray(attrMapsTo)) {
+
+					this._map[ attribute ].push( selector );
+
+				} else {
+					this._map[ attribute ] = [ this._map[ attribute ], selector ];
+				}
 			}
 		},
 
@@ -105,15 +123,25 @@ define(['backbone','jquery','jquery.fill','underscore'], function(Backbone, $, u
 				// and 'data' is keyed by model attribute
 				fillData = {};
 
+				console.log(this.map);
+				console.log(this._map);
 
 			// map the data to the fillData
 			_.each(data, function(value, key) {
 					// get the selector
-				var selector = _this._map[ key ] || key;
+				var selector = _this._map[ key ];
 
-				// set the value on the fillData object
-				// keyed by selector
-				fillData[ selector ] = value;
+				// if the selector is an array
+				// for each of the selectors, set it on the fillData
+				if (_.isString(selector)) {
+					// set the value on the fillData object
+					// keyed by selector
+					fillData[ selector ] = value;
+				} else if (_.isArray(selector)) {
+					_.each(selector, function(s) {
+						fillData[ s ] = value;
+					});
+				}
 			});
 
 			/**
