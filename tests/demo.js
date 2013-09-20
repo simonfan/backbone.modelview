@@ -10,6 +10,7 @@ define(['backbone.modelview','backbone'], function(ModelView, Backbone) {
 		 * maps the data values to the html selectors
 		 */
 		map: {
+			'. -> style:background-color': 'background-color',
 			'.title': 'title',
 			'.title -> css:background-color': 'title-color',
 			'img': 'thumbnail',
@@ -24,13 +25,13 @@ define(['backbone.modelview','backbone'], function(ModelView, Backbone) {
 		 */
 		data: function(model) {
 			return model.attributes;
-		}
-
+		},
 	});
 
 
 
 	model.set({
+		'background-color': 'red',
 		title: 'Testing title',
 		'title-color': 'green',
 		thumbnail: 'warning.gif',

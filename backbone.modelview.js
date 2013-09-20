@@ -12,18 +12,19 @@ define(['backbone','jquery','jquery.fill','underscore'], function(Backbone, $, u
 
 			_.bindAll(this,'fill');
 
+			// make sure there is a model
+			this.model = _.isObject(this.model) ? this.model : _.isFunction(this.model) ? new this.model() : new Backbone.Model();
 
 			if (!this.el) {
 				throw new Error('NO EL in ModelView!');
 			}
 
-			var _this = this;
-
-			// maps the data from the model to the elements.
-			this.map = options.map || this.map || {};
+			var _this = this,
+				// maps the data from the model to the elements.
+				map = options.map || this.map || {};
 
 			// the real map
-			this._map = _.invert(this.map);
+			this._map = _.invert(map);
 
 			/** 
 			 * If there is a data parameter in the options, 
@@ -44,6 +45,47 @@ define(['backbone','jquery','jquery.fill','underscore'], function(Backbone, $, u
 			 * Initialize by filling in the model's data
 			 */
 			this.fill(this._data());
+		},
+
+		/**
+		 * Adds an element to the selector-data map.
+		 */
+		mapAttribute: function(selector, attribute) {
+			if (_.isObject(selector)) {
+				var _this = this;
+				_.each(selector, function(attribute, selector) {
+					_this.mapAttribute(selector, attribute);
+				})
+
+			} else {
+				this._map[ attribute ] = selector;
+			}
+		},
+
+		unmap: function(what, unmap) {
+			var _this = this;
+
+			if (what === 'attribute' || what === 'attr') {
+				return this.unmapAttribute(unmap);
+			} else {
+				return this.unmapSelector(unmap);
+			}
+		},
+
+		unmapAttribute: function(unmapAttribute) {
+			var _this = this;
+
+			this._map = _.filter(this._map, function(attribute, selector) {
+				return attribute !== unmapAttribute;
+			});
+		},
+
+		unmapSelector: function(unmapSelector) {
+			var _this = this;
+
+			this._map = _.filter(this._map, function(attribute, selector) {
+				return selector !== unmapSelector;
+			});
 		},
 
 		/**
