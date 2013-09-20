@@ -123,9 +123,6 @@ define(['backbone','jquery','jquery.fill','underscore'], function(Backbone, $, u
 				// and 'data' is keyed by model attribute
 				fillData = {};
 
-				console.log(this.map);
-				console.log(this._map);
-
 			// map the data to the fillData
 			_.each(data, function(value, key) {
 					// get the selector

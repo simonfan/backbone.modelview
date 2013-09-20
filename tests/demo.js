@@ -20,13 +20,13 @@ define(['backbone.modelview','backbone'], function(ModelView, Backbone) {
 		 * maps the data values to the html selectors
 		 */
 		map: {
+			'.input-text': 'background-color',
 			'. -> style:background-color': 'background-color',
 			'.title': 'title',
 			'.title -> css:background-color': 'title-color',
 			'img': 'thumbnail',
 			'img -> css:width': 'thumbnail-width',
 			'.option': 'fruit',
-			'.input-text': 'input',
 			'input[name="choose-one"]': 'choice',
 			'input[name="choose-multiple"]': 'check',
 		},
