@@ -21,7 +21,7 @@ define(['backbone','jquery','jquery.fill','underscore'], function(Backbone, $, u
 
 			var _this = this,
 				// maps the data from the model to the elements.
-				map = options.map || this.map || {};
+				map = options.map || this.map;
 
 			// the real map
 			this._map = {};
@@ -47,6 +47,11 @@ define(['backbone','jquery','jquery.fill','underscore'], function(Backbone, $, u
 			 */
 			this.fill(this._data());
 		},
+
+		/**
+		 * selector: attributeName
+		 */
+		map: {},
 
 		/**
 		 * default model constructor.
